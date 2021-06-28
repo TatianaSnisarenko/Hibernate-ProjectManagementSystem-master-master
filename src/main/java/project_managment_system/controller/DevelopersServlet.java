@@ -103,6 +103,7 @@ public class DevelopersServlet extends HttpServlet {
             skills = Arrays.stream(skillsIds).mapToInt(Integer::parseInt).mapToObj(i -> skillRepository.findById(i))
                     .collect(Collectors.toCollection(TreeSet::new));
         }
+
         developer.setName(name);
         developer.setAge(age);
         developer.setSex(sex);

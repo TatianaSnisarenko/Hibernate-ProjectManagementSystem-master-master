@@ -100,6 +100,31 @@
                         </c:forEach>
                     </c:if>
                     <br>
+                    <label>Company developers</label><br>
+                    <c:if test="${company != null}">
+                        <c:set var="companyDevelopers" value="${company.developers}"/>
+                        <c:forEach var="developer" items="${allDevelopers}">
+                            <c:if test="${companyDevelopers.contains(developer)}">
+                                <input type="checkbox" name="developers" checked
+                                       value="${developer.idDeveloper}"/>
+                                ${developer.name}<br>
+                            </c:if>
+                            <c:if test="${!companyDevelopers.contains(developer)}">
+                                <input type="checkbox" name="developers"
+                                       value="${developer.idDeveloper}"/>
+                                ${developer.name}<br>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
+
+                    <c:if test="${company == null}">
+                        <c:forEach var="developer" items="${allDevelopers}">
+                            <input type="checkbox" name="developers"
+                                   value="${developer.idDeveloper}"/>
+                            ${developer.name}<br>
+                        </c:forEach>
+                    </c:if>
+                    <br>
                     <button type="submit" class="btn btn-success">Save</button>
                 </form>
         </div>

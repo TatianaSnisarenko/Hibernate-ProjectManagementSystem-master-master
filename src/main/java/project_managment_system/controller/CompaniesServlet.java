@@ -1,8 +1,10 @@
 package project_managment_system.controller;
 
 import project_managment_system.config.HibernateDatabaseConnector;
+import project_managment_system.dao.entity.DeveloperDao;
 import project_managment_system.dao.entity.ProjectDao;
 import project_managment_system.dao.repositories.one_entity_repositories.CompanyRepository;
+import project_managment_system.dao.repositories.one_entity_repositories.DeveloperRepository;
 import project_managment_system.dao.repositories.one_entity_repositories.ProjectRepository;
 import project_managment_system.dao.repositories.one_entity_repositories.Repository;
 import project_managment_system.dto.CompanyTo;
@@ -24,12 +26,14 @@ public class CompaniesServlet extends HttpServlet {
     private CompanyRepository companyRepository;
     private CompanyService companyService;
     private Repository<ProjectDao> projectRepository;
+    private Repository<DeveloperDao> developerRepository;
 
     @Override
     public void init() throws ServletException {
         this.companyRepository = new CompanyRepository(HibernateDatabaseConnector.getSessionFactory());
         this.projectRepository = new ProjectRepository(HibernateDatabaseConnector.getSessionFactory());
         this.companyService = new CompanyService(companyRepository);
+        this.developerRepository = new DeveloperRepository(HibernateDatabaseConnector.getSessionFactory());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -109,9 +113,16 @@ public class CompaniesServlet extends HttpServlet {
             projects = Arrays.stream(projectsIds).mapToInt(Integer::parseInt).mapToObj(i -> projectRepository.findById(i))
                     .collect(Collectors.toCollection(TreeSet::new));
         }
+        Set<DeveloperDao> developers = new TreeSet<>();
+        String[] developersIds = req.getParameterValues("developers");
+        if(developersIds != null && developersIds.length > 0){
+            developers = Arrays.stream(developersIds).mapToInt(Integer::parseInt).mapToObj(i -> developerRepository.findById(i))
+                    .collect(Collectors.toCollection(TreeSet::new));
+        }
         company.setName(name);
         company.setCity(city);
         company.setProjects(projects);
+        company.setDevelopers(developers);
     }
 
     private void showEditFromForCompany(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -120,12 +131,16 @@ public class CompaniesServlet extends HttpServlet {
         req.setAttribute("company", company);
         Set<ProjectDao> allProjects = projectRepository.findAll();
         req.setAttribute("allProjects", allProjects);
+        Set<DeveloperDao> allDevelopers = developerRepository.findAll();
+        req.setAttribute("allDevelopers", allDevelopers);
         req.getRequestDispatcher("/view/company-form.jsp").forward(req, resp);
     }
 
     private void showNewCompanyForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Set<ProjectDao> allProjects = projectRepository.findAll();
         req.setAttribute("allProjects", allProjects);
+        Set<DeveloperDao> allDevelopers = developerRepository.findAll();
+        req.setAttribute("allDevelopers", allDevelopers);
         req.getRequestDispatcher("/view/company-form.jsp").forward(req, resp);
     }
 

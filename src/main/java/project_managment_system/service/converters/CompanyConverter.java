@@ -25,6 +25,7 @@ public class CompanyConverter {
         companyTo.setName(companyDao.getName());
         companyTo.setCity(companyDao.getCity());
         companyTo.setProjects(companyDao.getProjects());
+        companyTo.setDevelopers(companyDao.getDevelopers());
         return companyTo;
     }
 

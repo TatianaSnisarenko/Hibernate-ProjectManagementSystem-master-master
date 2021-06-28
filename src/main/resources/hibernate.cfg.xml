@@ -18,6 +18,8 @@
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
 
+        <property name="hbm2ddl.auto">validate</property>
+
         <mapping class="project_managment_system.dao.entity.CompanyDao" />
         <mapping class="project_managment_system.dao.entity.CustomerDao" />
         <mapping class="project_managment_system.dao.entity.DeveloperDao" />

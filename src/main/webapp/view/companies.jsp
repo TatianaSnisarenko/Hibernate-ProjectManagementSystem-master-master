@@ -57,6 +57,7 @@
 						<th>Name</th>
 						<th>City</th>
 						<th>Projects</th>
+						<th>Developers</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -68,6 +69,7 @@
 							<td><c:out value="${company.name}" /></td>
 							<td><c:out value="${company.city}" /></td>
 							<td><c:out value="${company.projects}" /></td>
+							<td><c:out value="${company.developers}" /></td>
 							<td><a href="<%=request.getContextPath()%>/companies/edit?idCompany=<c:out value='${company.idCompany}' />">Edit</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a
 								href="<%=request.getContextPath()%>/companies/delete?idCompany=<c:out value='${company.idCompany}' />">Delete</a></td>

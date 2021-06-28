@@ -7,6 +7,5 @@ public class CompanyRepository extends UniversalRepository<CompanyDao> {
 
     public CompanyRepository(SessionFactory sessionFactory) {
         super(sessionFactory, CompanyDao.class);
-
     }
 }
