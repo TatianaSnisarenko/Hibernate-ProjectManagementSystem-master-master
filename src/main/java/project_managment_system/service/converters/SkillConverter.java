@@ -3,9 +3,6 @@ package project_managment_system.service.converters;
 import project_managment_system.dao.entity.SkillDao;
 import project_managment_system.dto.SkillTo;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -29,8 +26,8 @@ public class SkillConverter {
         return skillTo;
     }
 
-    public static Set<SkillTo> allFromSkillDao(Set<SkillDao> skillDaos) {
-        return skillDaos.stream()
+    public static Set<SkillTo> allFromSkillDao(Set<SkillDao> skills) {
+        return skills.stream()
                 .map(SkillConverter::fromSkillDao)
                 .collect(Collectors.toCollection(TreeSet::new));
     }

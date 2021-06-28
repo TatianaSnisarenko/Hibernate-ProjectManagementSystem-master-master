@@ -35,8 +35,8 @@ public class DeveloperConverter {
         return developerTo;
     }
 
-    public static Set<DeveloperTo> allFromDeveloperDao(Set<DeveloperDao> developerDaos) {
-        return developerDaos.stream()
+    public static Set<DeveloperTo> allFromDeveloperDao(Set<DeveloperDao> developers) {
+        return developers.stream()
                 .map(DeveloperConverter::fromDeveloperDao)
                 .collect(Collectors.toCollection(TreeSet::new));
     }
